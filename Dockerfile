@@ -10,9 +10,9 @@ RUN curl -sSL https://github.com/haskell/haskell-ide-engine/archive/1.3.tar.gz |
 RUN curl -sSL https://get.haskellstack.org/ | sh
 
 WORKDIR /root/ghc-8.6.5
-RUN ./configure --prefix=/root/ghc-8.6.5/pkgdir \
+RUN ./configure --prefix=/usr/local \
     && make install \
-    && tar -cvf /root/ghc-8.6.5-pkg.tar -C /root/ghc-8.6.5/pkgdir .
+    && tar -cvf /root/ghc-8.6.5-pkg.tar -C /usr/local .
 
 WORKDIR /root/haskell-ide-engine-1.3
 RUN stack --stack-yaml=stack-8.6.5.yaml --local-bin-path /usr/local/bin/ install
@@ -20,7 +20,7 @@ RUN stack --stack-yaml=stack-8.6.5.yaml --local-bin-path /usr/local/bin/ install
 FROM centos:7
 COPY --from=builder /usr/local/bin/hie* /usr/local/bin/
 COPY --from=builder /root/ghc-8.6.5-pkg.tar /root/ghc-8.6.5-pkg.tar
-RUN tar -xf /root/ghc-8.6.5-pkg.tar -C /usr/local/ \
+RUN tar -xf /root/ghc-8.6.5-pkg.tar -C /usr/local \
     && rm -rf /root/ghc-8.6.5-pkg.tar
 
 RUN curl -sSL https://get.haskellstack.org/ | sh
