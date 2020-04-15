@@ -2,7 +2,7 @@ FROM centos:7
 
 ENV PATH=/root/.local/bin:$PATH
 
-RUN curl https://github.com/haskell/haskell-ide-engine/archive/1.3.tar.gz | tar xf - -C /root
+RUN curl -sSL https://github.com/haskell/haskell-ide-engine/archive/1.3.tar.gz | tar xzf - -C /root
 
 RUN yum groupinstall -y "Development Tools"
 
