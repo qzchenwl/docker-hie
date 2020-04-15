@@ -19,7 +19,9 @@ RUN stack --stack-yaml=stack-8.6.5.yaml --local-bin-path /usr/local/bin/ install
 
 FROM centos:7
 COPY --from=builder /usr/local/bin/hie* /usr/local/bin/
-ADD  --from=builder /root/ghc-8.6.5-pkg.tar /usr/local/
+COPY --from=builder /root/ghc-8.6.5-pkg.tar /root/ghc-8.6.5-pkg.tar
+RUN tar -xf /root/ghc-8.6.5-pkg.tar -C /usr/local/ \
+    && rm -rf /root/ghc-8.6.5-pkg.tar
 
 RUN curl -sSL https://get.haskellstack.org/ | sh
 
