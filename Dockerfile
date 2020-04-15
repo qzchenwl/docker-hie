@@ -7,7 +7,7 @@ RUN curl -sSL https://github.com/haskell/haskell-ide-engine/archive/1.3.tar.gz |
 RUN yum groupinstall -y "Development Tools"
 
 RUN yum install -y epel-release
-RUN yum install -y zlib-devel postgresql-devel
+RUN yum install -y zlib-devel postgresql-devel ncurses-devel
 RUN yum install -y cabal-install tree
 
 RUN curl -sSL https://get.haskellstack.org/ | sh
